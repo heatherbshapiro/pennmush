@@ -1,6 +1,4 @@
-FROM ubuntu 
+FROM ubuntu:16.10 
 
-RUN apt-get update
-RUN apt-get upgrade 
-RUN apt-get install build-essential -y
+RUN apt-get update && apt-get upgrade -y && apt-get install build-essential libpcre3 libpcre3-dev libssl-dev wget -y 
 
