@@ -4,3 +4,5 @@ RUN apt-get update && apt-get upgrade -y && apt-get install build-essential libp
 
 COPY . mushsource
 
+EXPOSE 23
+
