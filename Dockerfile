@@ -8,6 +8,6 @@ WORKDIR /mushsource
 
 RUN ./configure && make update && make install
 
-RUN cd game && sed 's/GAMEDIR=.*/GAMEDIR=\/mushsource\/game' ./restart && ./restart
+RUN cd game && sed -i 's/^GAMEDIR=.*/GAMEDIR=\/mushsource\/game/' ./restart && ./restart
 
 EXPOSE 23
