@@ -7,7 +7,10 @@ COPY . mushsource
 WORKDIR /mushsource
 
 RUN ./configure && make update && make install && \
-    cd game && sed -i 's/^GAMEDIR=.*/GAMEDIR=\/mushsource\/game/' ./restart
+    cd game && sed -i 's/^GAMEDIR=.*/GAMEDIR=\/mushsource\/game/' ./restart && \ 
+    sed -i 's/^ip_addr/ip_addr 0.0.0.0/' ./mushcnf.dst
 
-RUN adduser user 
-CMD ["su","-","user","-c","./restart"]
+RUN useradd newuser   
+USER newuser
+
+ENTRYPOINT /mushsource/game/restart   
