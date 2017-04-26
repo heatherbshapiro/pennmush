@@ -13,5 +13,5 @@ RUN ./configure && make update && make install && \
 RUN useradd newuser   
 RUN chown -R newuser /mushsource/game
 USER newuser
-COPY .Deployment/entrypoint.sh /mushsource/game
+COPY ./Deployment/entrypoint.sh /mushsource/game
 ENTRYPOINT /mushsource/game/entrypoint.sh
