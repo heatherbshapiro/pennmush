@@ -8,10 +8,10 @@ WORKDIR /mushsource
 
 RUN ./configure && make update && make install && \
     cd game && sed -i 's/^GAMEDIR=.*/GAMEDIR=\/mushsource\/game/' ./restart && \ 
-    sed -i 's/^ip_addr/ip_addr 0.0.0.0/' ./mushcnf.dst && \
+    sed -i 's/^ip_addr/ip_addr 0.0.0.0/' ./mushcnf.dst
 
 RUN useradd newuser   
 RUN chown -R newuser /mushsource/game
 USER newuser
-
-ENTRYPOINT /mushsource/game/restart   
+COPY .Deployment/entrypoint.sh /mushsource/game
+ENTRYPOINT /mushsource/game/entrypoint.sh
