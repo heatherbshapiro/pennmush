@@ -11,6 +11,7 @@ RUN ./configure && make update && make install && \
     sed -i 's/^ip_addr/ip_addr 0.0.0.0/' ./mushcnf.dst
 
 RUN useradd newuser   
+RUN chown -R newuser /mushsource/game
 USER newuser
 
 ENTRYPOINT /mushsource/game/restart   
