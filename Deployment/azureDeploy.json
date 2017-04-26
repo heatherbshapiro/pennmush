@@ -49,7 +49,8 @@
     "vmSize": "Standard_A1",
     "virtualNetworkName": "MyVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+    "extensionName": "DockerExtension"
   },
   "resources": [
     {
@@ -173,22 +174,29 @@
         }
       }
     },
- {
-	"docker":{
-		"options": ["-D", "--dns=8.8.8.8"]
-	},
-	"compose": {
-		"cache" : {
-			
-		},
-		"web": {
-			
-		}
-	},
-	"compose-environment": {
-		"COMPOSE_PROJECT_NAME": "mush"
-	}
-}
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(variables('vmName'),'/', variables('extensionName'))]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "DockerExtension",
+        "typeHandlerVersion": "1.0",
+        "autoUpgradeMinorVersion": true,
+        "settings":{
+          "compose": {
+            "dockermush" : {
+              "image" : "jsturtevant/dockermush",
+              "ports" : ["4201:4201"]
+            }
+          }
+        } 
+      }
+    }
     
   ],
   "outputs": {
