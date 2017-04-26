@@ -20,6 +20,12 @@
         "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
       }
     },
+     "imagename": {
+      "type": "string",
+      "metadata": {
+        "description": "image name from docker hub."
+      }
+    },
     "ubuntuOSVersion": {
       "type": "string",
       "defaultValue": "16.04.0-LTS",
@@ -190,7 +196,7 @@
         "settings":{
           "compose": {
             "dockermush" : {
-              "image" : "jsturtevant/dockermush",
+              "image" : "[parameters('imagename')]",
               "ports" : ["4201:4201"]
             }
           }
