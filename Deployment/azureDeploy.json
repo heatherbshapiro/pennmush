@@ -169,10 +169,27 @@
           "bootDiagnostics": {
             "enabled": "true",
             "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob)]"
-          }
+          }     
         }
       }
-    }
+    },
+ {
+	"docker":{
+		"options": ["-D", "--dns=8.8.8.8"]
+	},
+	"compose": {
+		"cache" : {
+			
+		},
+		"web": {
+			
+		}
+	},
+	"compose-environment": {
+		"COMPOSE_PROJECT_NAME": "mush"
+	}
+}
+    
   ],
   "outputs": {
     "hostname": {
